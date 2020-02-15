@@ -1,0 +1,81 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+typedef long long ll;
+#define MAXN 15000005
+#define all(v) ((v).begin()),((v).end())
+int spf[MAXN + 5]; // range + 1 to include last number in range
+int cnt[MAXN + 5] = {0};
+
+void sieve() {
+    spf[1] = 1;
+    for (int i = 2; i < MAXN; i++)
+
+        // marking smallest prime factor for every
+        // number to be itself.
+        spf[i] = i;
+
+    // separately marking spf for every even
+    // number as 2
+    for (int i = 4; i < MAXN; i += 2)
+        spf[i] = 2;
+
+    for (int i = 3; i * i < MAXN; i++) {
+        // checking if i is prime
+        if (spf[i] == i) {
+            // marking SPF for all numbers divisible by i
+            for (int j = i * i; j < MAXN; j += i)
+
+                // marking spf[j] if it is not
+                // previously marked
+                if (spf[j] == j)
+                    spf[j] = i;
+        }
+    }
+}
+
+void getFactorization(vector<int> numbers) {
+    for (int x : numbers) {
+        while (x != 1) {
+            int p = spf[x];
+            cnt[p]++;
+            while (x % p == 0)
+                x = x / p;
+        }
+
+    }
+}
+
+int gcd(int a, int b) {
+
+    if (b == 0)
+        return a;
+    return gcd(b, a % b);
+}
+
+int main() {
+
+    int n;
+    sieve();
+
+    cin >> n;
+    vector<int> numbers(n);
+    int all_gcd = 0;
+    for (int i = 0; i < n; i++)
+        cin >> numbers[i] , all_gcd =gcd(all_gcd,numbers[i]);
+
+    for (int &number : numbers) {
+        number /= all_gcd;
+
+    }
+
+    getFactorization(numbers);
+    int ans = 0;
+    for (int i : cnt) {
+        ans = max(ans, i);
+    }
+
+    printf("%d", ans > 0 ? n - ans : -1);
+
+    return 0;
+}
