@@ -1,0 +1,1 @@
+The e (or E) means "times 10-to-the", so 1e9 is "one times ten to the ninth power", and 1e-9 means "one times ten to the negative ninth power"
