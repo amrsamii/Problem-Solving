@@ -1,1 +1,5 @@
 The e (or E) means "times 10-to-the", so 1e9 is "one times ten to the ninth power", and 1e-9 means "one times ten to the negative ninth power"
+
+to get min of more than two elements using only one min() function => min({var1,var2,var2,..})
+
+If there is a special state for the first index in Memoization problems, don't use -1 with it, because it's index of the Mem[][4] and there is no -ve index in arrays, use 3 for example
